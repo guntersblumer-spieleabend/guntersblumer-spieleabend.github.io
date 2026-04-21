@@ -1,0 +1,20 @@
+{
+  "faqs": [
+    {
+      "questionHtml": "Kann ich eigene Spiele mitbringen?",
+      "answerHtml": "Spiele sind vorhanden aber gerne könnt ihr eigene Spiele mitbringen."
+    },
+    {
+      "questionHtml": "Ich bin unter 18 Jahre alt, darf ich kommen?",
+      "answerHtml": "Personen unter 18 Jahren dürfen nur in Begleitung eines Erziehungsberechtigten den Abend beiwohnen."
+    },
+    {
+      "questionHtml": "Darf ich auch mit einem Kleinkind kommen?",
+      "answerHtml": "Ja, wir bieten aber keine Betreuung an."
+    },
+    {
+      "questionHtml": "Was kostet der Abend?",
+      "answerHtml": "Nichts, es existiert eine Spendenbox für die Kosten des Raums und etwaige neue Spiele."
+    }
+  ]
+}

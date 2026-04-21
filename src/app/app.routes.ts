@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { StartComponent } from './pages/start/start.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
 
@@ -12,12 +13,16 @@ export const routes: Routes = [
   {
     component: StartComponent,
     path: 'start',
-    providers: [
-      {
-        provide: APP_BASE_HREF,
-        useValue: '../'
-      }
-    ]
+    data: {
+      pageName: 'Startseite'
+    }
+  },
+  {
+    component: ContactComponent,
+    path: 'contact',
+    data: {
+      pageName: 'Kontakt'
+    }
   },
   {
     path: '**',

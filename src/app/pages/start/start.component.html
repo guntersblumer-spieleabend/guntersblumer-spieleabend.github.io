@@ -1,1 +1,39 @@
-<p>start works!</p>
+
+@if (infoService.news$ | async; as newsArr) {
+  <div class="news-container">
+    @for (newsObj of newsArr; track $index; let i = $index) {
+      <div class="news-item">
+        <div class="news-item">{{ newsObj.html }}</div>
+      </div>
+    }
+  </div>
+}
+
+@if (infoService.events$ | async; as eventsArr) {
+  <div class="events-container">
+    @for (event of eventsArr; track $index; let i = $index) {
+      <div class="event">
+
+        <div class="name">{{ event.number }}. Guntersblumer Spieleabend</div>
+        <div class="date">Wann: {{ event.dateFrom }}</div>
+        <div class="location">Wo: {{ event.location }}</div>
+
+      </div>
+    }
+  </div>
+}
+
+@if (infoService.nextEvent() | async; as nextEvent) {
+  <div class="next-container">Nächster Termin: {{ nextEvent.dateFrom }}</div>
+}
+
+@if (infoService.faqs$ | async; as faqsArr) {
+  <div class="faqs-container">
+    @for (faq of faqsArr; track $index; let i = $index) {
+      <div class="faq">
+        <div class="question">{{ faq.questionHtml }}</div>
+        <div class="answer">{{ faq.answerHtml }}</div>
+      </div>
+    }
+  </div>
+}

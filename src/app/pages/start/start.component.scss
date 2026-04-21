@@ -1,0 +1,13 @@
+
+:host {
+
+  .news-container, .events-container, .next-container, .faqs-container {
+    padding: 2ch;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+
+  }
+
+}
