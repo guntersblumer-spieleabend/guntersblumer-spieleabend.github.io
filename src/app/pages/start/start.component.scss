@@ -1,8 +1,67 @@
 
 :host {
 
-  .news-container, .events-container, .next-container, .faqs-container {
+  .next-event-container {
+
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+
+    border: 2px solid var(--guntersblum-blue);
+    border-radius: 5px;
+
     padding: 2ch;
+
+    margin-top: 4ch;
+
+    h2 {
+      font-size: 2rem;
+      padding: 5px 0;
+    }
+
+  }
+
+  .events-container {
+
+    margin-top: 4ch;
+
+    .event {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2ch;
+    }
+  }
+
+  .faqs-container {
+
+    margin-top: 4ch;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+
+    .faq {
+
+      display: flex;
+      flex-direction: column;
+      gap: 0ch;
+
+      .question {
+        font-size: 1.2rem;
+      }
+
+      .answer {
+        font-size: 1.4rem;
+        font-style: italic;
+      }
+    }
+  }
+
+  & > *:last-of-type {
+    margin-bottom: 4ch;
+  }
+
+  .news-container, .events-container, .next-container, .faqs-container {
 
     display: flex;
     flex-direction: column;

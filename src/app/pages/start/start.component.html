@@ -1,5 +1,23 @@
 
-@if (infoService.news$ | async; as newsArr) {
+@if (infoService.nextEvent() | async; as nextEvent) {
+  <div class="next-event-container">
+
+    <h2>Nächster Termin:</h2>
+
+    <app-compartement title="Wann">
+      <div class="date">{{ nextEvent.dateFrom }} <span class="weekday">({{nextEvent.dateFromWeekDay}}.)</span></div>
+      <div class="start-time">{{ nextEvent.startTime }}</div>
+    </app-compartement>
+
+    <app-compartement title="Wo">
+      <div class="location">{{ nextEvent.location }}</div>
+    </app-compartement>
+
+  </div>
+}
+
+
+<!-- @if (infoService.news$ | async; as newsArr) {
   <div class="news-container">
     @for (newsObj of newsArr; track $index; let i = $index) {
       <div class="news-item">
@@ -7,28 +25,35 @@
       </div>
     }
   </div>
-}
+} -->
 
-@if (infoService.events$ | async; as eventsArr) {
+<div class="future-events-container">
+
+
+
+</div>
+
+@if (infoService.futureEvents() | async; as eventsArr) {
   <div class="events-container">
-    @for (event of eventsArr; track $index; let i = $index) {
-      <div class="event">
-
-        <div class="name">{{ event.number }}. Guntersblumer Spieleabend</div>
-        <div class="date">Wann: {{ event.dateFrom }}</div>
-        <div class="location">Wo: {{ event.location }}</div>
-
-      </div>
+    <h2>Kommende Termine:</h2>
+    @if (eventsArr.length > 0) {
+      @for (event of eventsArr; track $index; let i = $index) {
+        <div class="event">
+          <div class="name">Nr. {{ event.number }}</div>
+          <div class="date">Am: {{ event.dateFrom }}</div>
+        </div>
+      }
+    } @else {
+      <div>Keine weitere Termine geplant</div>
     }
   </div>
 }
 
-@if (infoService.nextEvent() | async; as nextEvent) {
-  <div class="next-container">Nächster Termin: {{ nextEvent.dateFrom }}</div>
-}
+
 
 @if (infoService.faqs$ | async; as faqsArr) {
   <div class="faqs-container">
+    <h2>Häufig gestellte Fragen:</h2>
     @for (faq of faqsArr; track $index; let i = $index) {
       <div class="faq">
         <div class="question">{{ faq.questionHtml }}</div>

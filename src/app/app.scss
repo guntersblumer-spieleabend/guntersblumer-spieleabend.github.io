@@ -9,6 +9,12 @@
 
     background-color: var(--guntersblum-blue);
     color: white;
+
+    .page-content {
+      h1 {
+        margin: 2ch 0;
+      }
+    }
   }
 
   main {
@@ -23,6 +29,42 @@
   footer {
     background-color: var(--guntersblum-blue);
     color: white;
+
+    .footer-content {
+
+      font-size: 1.5rem;
+
+      display: flex;
+      flex-direction: column;
+      gap: 1ch;
+      padding-top: 4ch;
+      padding-bottom: 2ch;
+
+      a {
+        color: white;
+        cursor: pointer;
+        &:visited {
+          color: white;
+        }
+        &:focus-visible, &:hover {
+          color: rgb(198, 207, 251);
+        }
+      }
+
+      .qr-code {
+        --size: 160px;
+
+        display: block;
+        background-color: white;
+        height: var(--size);
+        width: var(--size);
+        padding: 3px;
+        border: 2px solid white;
+        border-radius: 1ch;
+      }
+
+    }
+
   }
 
   .page-content {

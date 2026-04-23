@@ -4,7 +4,7 @@ import { MainNavComponent } from './shared/main-nav/main-nav.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MainNavComponent],
+  imports: [RouterOutlet, /*MainNavComponent*/],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

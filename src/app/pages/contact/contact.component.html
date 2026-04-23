@@ -1,11 +1,7 @@
 
-
-
-<!-- https://formspree.io -->
- @let fid = 'xbdqaepv';
-
- <form action="https://formspree.io/f/{{fid}}" method="post">
+<p>For testing</p>
+ <form method="post" (submit)="onSubmit($event)">
   <label for="email">Your Email</label>
-  <input name="Email" id="email" type="email">
+  <input name="Email" id="email">
   <button type="submit">Submit</button>
 </form>

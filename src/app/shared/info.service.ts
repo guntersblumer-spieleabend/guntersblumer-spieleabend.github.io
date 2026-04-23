@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import NewsJson from '../../public/news.json';
-import EventsJson from '../../public/events.json';
-import FaqsJson from '../../public/faqs.json';
+import NewsJson from '../../../public/news.json';
+import EventsJson from '../../../public/events.json';
+import FaqsJson from '../../../public/faqs.json';
 import { BehaviorSubject, map } from 'rxjs';
 
 type GermanDateRange = {
@@ -9,6 +9,7 @@ type GermanDateRange = {
   dateTo?: string;
   // calculated from the script
   dateFromRaw?: number;
+  dateFromWeekDay?: string;
   dateToRaw?: number;
   isCurrent?: boolean;
 };
@@ -20,6 +21,7 @@ export type NewsObject = {
 export type EventsObject = {
   location: string;
   number: number;
+  startTime: string;
 } & GermanDateRange;
 
 export type Faq = {
@@ -33,13 +35,16 @@ export type Faq = {
 })
 export class InfoService {
 
-  newBehaviorSubject = new BehaviorSubject<NewsObject[]>([]);
+  // add "provideHttpClient(withFetch())"
+  // private httpClient = inject(HttpClient);
+
+  private newBehaviorSubject = new BehaviorSubject<NewsObject[]>([]);
   news$ = this.newBehaviorSubject.asObservable();
 
-  eventsBehaviorSubject = new BehaviorSubject<EventsObject[]>([]);
+  private eventsBehaviorSubject = new BehaviorSubject<EventsObject[]>([]);
   events$ = this.eventsBehaviorSubject.asObservable();
 
-  faqsBehaviorSubject = new BehaviorSubject<Faq[]>([]);
+  private faqsBehaviorSubject = new BehaviorSubject<Faq[]>([]);
   faqs$ = this.faqsBehaviorSubject.asObservable();
 
   constructor() {
@@ -52,7 +57,9 @@ export class InfoService {
     const now = Date.now();
     arr.forEach(obj => {
       if (obj.dateFrom) {
-        obj.dateFromRaw = this.getDateFromString(obj.dateFrom).getTime();
+        const from = this.getDateFromString(obj.dateFrom);
+        obj.dateFromRaw = from.getTime();
+        obj.dateFromWeekDay = new Intl.DateTimeFormat('de', {weekday: 'short'}).format(from);
       } else {
         obj.dateFromRaw = now;
       }
@@ -80,15 +87,32 @@ export class InfoService {
   }
 
   nextEvent() {
+    return this.futureEvents().pipe(map(fEvents => fEvents?.[0]));
+  }
 
+  futureEvents() {
     const now = Date.now();
 
     return this.events$.pipe(map(events => {
       const newArr = structuredClone(events);
-      const nextEvent = newArr.filter(e => e.dateFromRaw! >= now).sort((a, b) => a.dateFromRaw! - b.dateFromRaw!)?.[0];
-      return nextEvent;
+      const futureEvents = newArr.filter(e => e.dateFromRaw! >= now).sort((a, b) => a.dateFromRaw! - b.dateFromRaw!) || [];
+      return futureEvents;
     }));
+  }
 
+  sendContact() {
+
+    // uses https://formspree.io - NOT DSGVO / GDPR save
+    const formSpreeId = 'xbdqaepv';
+    const url = 'https://formspree.io/f/' + formSpreeId;
+
+    const formData = new FormData();
+    formData.append('email', 'test@mock.de');
+    formData.append('name', 'Test');
+
+    // this.httpClient.post(url, formData, {}).subscribe(res => {
+    //   console.log('Formdata send to ', {url, formData, result: res});
+    // });
   }
 
 }
