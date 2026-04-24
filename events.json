@@ -1,0 +1,70 @@
+{
+  "events": [
+    {
+      "dateFrom": "03.07.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 11
+    },
+    {
+      "dateFrom": "12.06.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 10
+    },
+    {
+      "dateFrom": "29.05.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 9
+    },
+    {
+      "dateFrom": "15.05.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 8
+    },
+    {
+      "dateFrom": "25.04.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 7
+    },
+    {
+      "dateFrom": "10.04.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 6
+    },
+    {
+      "dateFrom": "20.03.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 5
+    },
+    {
+      "dateFrom": "20.02.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 4
+    },
+    {
+      "dateFrom": "06.02.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 3
+    },
+    {
+      "dateFrom": "23.01.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 2
+    },
+    {
+      "dateFrom": "09.01.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": "Ab 18 Uhr",
+      "number": 1
+    }
+  ]
+}

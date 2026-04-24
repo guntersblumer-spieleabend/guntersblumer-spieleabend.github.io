@@ -1,0 +1,1 @@
+*{padding:0;margin:0;box-sizing:border-box}:root{--guntersblum-blue: #0066B3;--page-width: 1080px;--side-padding: 0ch}@media screen and (width <= calc(1080px + 2ch)){:root{--side-padding: 2ch}}@media screen and (width <= calc(700px + 1ch)){:root{--side-padding: 1ch}}:root body{display:block;width:100%;height:100vh}
