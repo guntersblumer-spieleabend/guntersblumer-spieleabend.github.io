@@ -27,25 +27,23 @@
   </div>
 } -->
 
-<div class="future-events-container">
-
-
-
-</div>
-
 @if (infoService.futureEvents() | async; as eventsArr) {
   <div class="events-container">
     <h2>Kommende Termine:</h2>
-    @if (eventsArr.length > 0) {
-      @for (event of eventsArr; track $index; let i = $index) {
-        <div class="event">
-          <div class="name">Nr. {{ event.number }}</div>
-          <div class="date">Am: {{ event.dateFrom }}</div>
-        </div>
+
+    <div class="container-content">
+
+      @if (eventsArr.length > 0) {
+        @for (event of eventsArr; track $index; let i = $index) {
+          <div class="event">
+            <div class="name">Nr. {{ event.number }}</div>
+            <div class="date">Am: {{ event.dateFrom }}</div>
+          </div>
+        }
+      } @else {
+        <div>Keine weitere Termine geplant</div>
       }
-    } @else {
-      <div>Keine weitere Termine geplant</div>
-    }
+    </div>
   </div>
 }
 
@@ -54,11 +52,16 @@
 @if (infoService.faqs$ | async; as faqsArr) {
   <div class="faqs-container">
     <h2>Häufig gestellte Fragen:</h2>
-    @for (faq of faqsArr; track $index; let i = $index) {
-      <div class="faq">
-        <div class="question">{{ faq.questionHtml }}</div>
-        <div class="answer">{{ faq.answerHtml }}</div>
-      </div>
-    }
+
+    <div class="container-content">
+
+      @for (faq of faqsArr; track $index; let i = $index) {
+        <div class="faq">
+          <div class="question">{{ faq.questionHtml }}</div>
+          <div class="answer">{{ faq.answerHtml }}</div>
+        </div>
+      }
+
+    </div>
   </div>
 }

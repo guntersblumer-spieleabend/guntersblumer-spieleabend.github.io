@@ -1,7 +1,17 @@
 
-<p>For testing</p>
- <form method="post" (submit)="onSubmit($event)">
-  <label for="email">Your Email</label>
-  <input name="Email" id="email">
-  <button type="submit">Submit</button>
-</form>
+
+
+<div (click)="toggle($event)" class="container">
+
+  <h1>@starting-style / View Transition API</h1>
+
+  <div class="buttons">
+    <button (click)="addEl()">ADD</button>
+    <button [disabled]="(removable$ | async) === false" (click)="removeEl()">REMOVE</button>
+  </div>
+
+  <ul>
+  </ul>
+
+</div>
+

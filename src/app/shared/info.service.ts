@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import NewsJson from '../../../public/news.json';
-import EventsJson from '../../../public/events.json';
-import FaqsJson from '../../../public/faqs.json';
-import { BehaviorSubject, map } from 'rxjs';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, forkJoin, map } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 
 type GermanDateRange = {
   dateFrom?: string;
@@ -35,11 +34,13 @@ export type Faq = {
 })
 export class InfoService {
 
-  // add "provideHttpClient(withFetch())"
-  // private httpClient = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
 
-  private newBehaviorSubject = new BehaviorSubject<NewsObject[]>([]);
-  news$ = this.newBehaviorSubject.asObservable();
+  private httpClient = inject(HttpClient);
+
+  private newsBehaviorSubject = new BehaviorSubject<NewsObject[]>([]);
+  news$ = this.newsBehaviorSubject.asObservable();
 
   private eventsBehaviorSubject = new BehaviorSubject<EventsObject[]>([]);
   events$ = this.eventsBehaviorSubject.asObservable();
@@ -48,9 +49,27 @@ export class InfoService {
   faqs$ = this.faqsBehaviorSubject.asObservable();
 
   constructor() {
-    this.newBehaviorSubject.next(this.sortGermanDateRangeObjects(NewsJson.news, 'none'));
-    this.eventsBehaviorSubject.next(this.sortGermanDateRangeObjects(EventsJson.events, 'asc'));
-    this.faqsBehaviorSubject.next(FaqsJson.faqs);
+
+    if (this.isBrowser) {
+
+      this.httpClient.get<{events: EventsObject[];}>('events.json').subscribe(res => {
+        this.eventsBehaviorSubject.next(this.sortGermanDateRangeObjects(res.events, 'asc'));
+      });
+
+      this.httpClient.get<{faqs: Faq[];}>('faqs.json').subscribe(res => {
+        this.faqsBehaviorSubject.next(res.faqs);
+      });
+
+      this.httpClient.get<{news: NewsObject[]}>('news.json').subscribe(res => {
+        this.newsBehaviorSubject.next(this.sortGermanDateRangeObjects(res.news, 'none'));
+      });
+
+    } else {
+      this.newsBehaviorSubject.next([]);
+      this.eventsBehaviorSubject.next([]);
+      this.faqsBehaviorSubject.next([]);
+    }
+
   }
 
   sortGermanDateRangeObjects<T extends GermanDateRange>(arr: T[], sortType: 'asc' | 'desc' | 'none') {
@@ -110,9 +129,9 @@ export class InfoService {
     formData.append('email', 'test@mock.de');
     formData.append('name', 'Test');
 
-    // this.httpClient.post(url, formData, {}).subscribe(res => {
-    //   console.log('Formdata send to ', {url, formData, result: res});
-    // });
+    this.httpClient.post(url, formData, {}).subscribe(res => {
+      console.log('Formdata send to ', {url, formData, result: res});
+    });
   }
 
 }

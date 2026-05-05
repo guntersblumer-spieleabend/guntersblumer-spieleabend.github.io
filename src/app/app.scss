@@ -7,11 +7,20 @@
 
   header {
 
-    background-color: var(--guntersblum-blue);
+    --color: var(--guntersblum-blue);
+    background: linear-gradient(
+      135deg, var(--color) 0%,
+      lch(from var(--color) calc(l + 8) c h) 50%,
+      var(--color) 100%
+    );
     color: white;
 
     .page-content {
+
+      text-align: center;
+
       h1 {
+        font-size: clamp(1.5rem, 7vw, 3.6rem);
         margin: 2ch 0;
       }
     }
@@ -27,7 +36,14 @@
   }
 
   footer {
-    background-color: var(--guntersblum-blue);
+
+    --color: var(--guntersblum-blue);
+    background: linear-gradient(
+      135deg, var(--color) 0%,
+      lch(from var(--color) calc(l + 8) c h) 50%,
+      var(--color) 100%
+    );
+
     color: white;
 
     .footer-content {
