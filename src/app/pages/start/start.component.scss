@@ -3,26 +3,38 @@
 
   .next-event-container {
 
-    display: flex;
-    flex-direction: column;
-    gap: 1ch;
-
-    border: 2px solid var(--guntersblum-blue);
-    border-radius: 5px;
-
-    padding: 2ch;
-
     margin-top: 4ch;
+    display: flex;
+    flex-direction: row;
+    gap: 2ch;
+    flex-wrap: wrap;
 
-    transition: box-shadow 300ms ease-in;
+    main {
 
-    h2 {
-      font-size: 2rem;
-      padding: 5px 0;
+      width: clamp(340px, 100%, 36vw);
+
+      display: flex;
+      flex-direction: column;
+      gap: 1ch;
+
+      border: 2px solid var(--gb-blue);
+      border-radius: 5px;
+
+      padding: 2ch;
+      transition: box-shadow 300ms ease-in;
+
+      h2 {
+        font-size: 2rem;
+        padding: 5px 0;
+      }
+
+      &:hover, &:focus-visible, &:focus-within {
+        box-shadow: 2px 2px 4px rgb(171, 171, 171);
+      }
     }
 
-    &:hover, &:focus-visible, &:focus-within {
-      box-shadow: 2px 2px 4px rgb(171, 171, 171);
+    aside {
+      margin-left: auto;
     }
 
   }
@@ -30,6 +42,10 @@
   .events-container {
 
     margin-top: 4ch;
+    display: flex;
+    flex-direction: row;
+    gap: 2ch;
+    flex-wrap: wrap;
 
     .container-content {
 
@@ -45,11 +61,18 @@
 
     }
 
+    aside {
+      margin-left: auto;
+    }
+
   }
 
   .faqs-container {
 
     margin-top: 4ch;
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
 
     .container-content {
 
@@ -62,7 +85,7 @@
         display: flex;
         flex-direction: column;
 
-        --color: rgb(225, 225, 225);
+        --color: var(--secondary);
         background: linear-gradient(
           135deg, var(--color) 0%,
           lch(from var(--color) calc(l + 8) c h) 50%,
@@ -105,12 +128,5 @@
     margin-bottom: 4ch;
   }
 
-  .news-container, .events-container, .next-container, .faqs-container {
-
-    display: flex;
-    flex-direction: column;
-    gap: 1ch;
-
-  }
 
 }

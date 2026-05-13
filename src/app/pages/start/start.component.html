@@ -2,20 +2,25 @@
 @if (infoService.nextEvent() | async; as nextEvent) {
   <div class="next-event-container">
 
-    <h2>Nächster Termin:</h2>
+    <main>
+      <h2>Nächster Termin:</h2>
 
-    <app-compartement title="Wann">
-      <div class="date">{{ nextEvent.dateFrom }} <span class="weekday">({{nextEvent.dateFromWeekDay}}.)</span></div>
-      <div class="start-time">{{ nextEvent.startTime }}</div>
-    </app-compartement>
+      <app-compartement title="Wann">
+        <div class="date">{{ nextEvent.dateFrom }} <span class="weekday">({{nextEvent.dateFromWeekDay}}.)</span></div>
+        <div class="start-time">{{ getDayTimeLabel(nextEvent) }}</div>
+      </app-compartement>
 
-    <app-compartement title="Wo">
-      <div class="location">{{ nextEvent.location }}</div>
-    </app-compartement>
+      <app-compartement title="Wo">
+        <div class="location">{{ nextEvent.location }}</div>
+      </app-compartement>
+    </main>
+
+    <aside>
+      <button class="icon-button secondary" (click)="downloadNextEvent(nextEvent)">Download nächster Termin als iCalc-Datei</button>
+    </aside>
 
   </div>
 }
-
 
 <!-- @if (infoService.news$ | async; as newsArr) {
   <div class="news-container">
@@ -29,21 +34,28 @@
 
 @if (infoService.futureEvents() | async; as eventsArr) {
   <div class="events-container">
-    <h2>Kommende Termine:</h2>
+    <main>
+      <h2>Kommende Termine:</h2>
 
-    <div class="container-content">
+      <div class="container-content">
 
-      @if (eventsArr.length > 0) {
-        @for (event of eventsArr; track $index; let i = $index) {
-          <div class="event">
-            <div class="name">Nr. {{ event.number }}</div>
-            <div class="date">Am: {{ event.dateFrom }}</div>
-          </div>
+        @if (eventsArr.length > 0) {
+          @for (event of eventsArr; track $index; let i = $index) {
+            <div class="event">
+              <div class="name">Nr. {{ event.number }}</div>
+              <div class="date">Am: {{ event.dateFrom }}</div>
+            </div>
+          }
+        } @else {
+          <div>Keine weitere Termine geplant</div>
         }
-      } @else {
-        <div>Keine weitere Termine geplant</div>
-      }
-    </div>
+      </div>
+    </main>
+
+    <aside>
+      <button class="icon-button secondary" (click)="downloadAllFutureEvents()">Download alle Termine als iCalc-Datei</button>
+    </aside>
+
   </div>
 }
 

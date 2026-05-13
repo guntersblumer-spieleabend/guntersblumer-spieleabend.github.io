@@ -7,7 +7,7 @@
 
   header {
 
-    --color: var(--guntersblum-blue);
+    --color: var(--gb-blue);
     background: linear-gradient(
       135deg, var(--color) 0%,
       lch(from var(--color) calc(l + 8) c h) 50%,
@@ -37,7 +37,7 @@
 
   footer {
 
-    --color: var(--guntersblum-blue);
+    --color: var(--gb-blue);
     background: linear-gradient(
       135deg, var(--color) 0%,
       lch(from var(--color) calc(l + 8) c h) 50%,

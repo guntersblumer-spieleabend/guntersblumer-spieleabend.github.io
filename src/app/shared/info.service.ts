@@ -1,9 +1,10 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, forkJoin, map } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 
 type GermanDateRange = {
+  dateObjectFrom?: Date;
   dateFrom?: string;
   dateTo?: string;
   // calculated from the script
@@ -20,7 +21,7 @@ export type NewsObject = {
 export type EventsObject = {
   location: string;
   number: number;
-  startTime: string;
+  startTime: {hour: number; minute: number;};
 } & GermanDateRange;
 
 export type Faq = {
@@ -38,6 +39,7 @@ export class InfoService {
   private isBrowser = isPlatformBrowser(this.platformId);
 
   private httpClient = inject(HttpClient);
+  private documentObject = inject(DOCUMENT);
 
   private newsBehaviorSubject = new BehaviorSubject<NewsObject[]>([]);
   news$ = this.newsBehaviorSubject.asObservable();
@@ -76,9 +78,9 @@ export class InfoService {
     const now = Date.now();
     arr.forEach(obj => {
       if (obj.dateFrom) {
-        const from = this.getDateFromString(obj.dateFrom);
-        obj.dateFromRaw = from.getTime();
-        obj.dateFromWeekDay = new Intl.DateTimeFormat('de', {weekday: 'short'}).format(from);
+        obj.dateObjectFrom = this.getDateFromString(obj.dateFrom);
+        obj.dateFromRaw = obj.dateObjectFrom.getTime();
+        obj.dateFromWeekDay = new Intl.DateTimeFormat('de', {weekday: 'short'}).format(obj.dateObjectFrom);
       } else {
         obj.dateFromRaw = now;
       }
@@ -102,6 +104,7 @@ export class InfoService {
 
   getDateFromString(str: string) {
     const [day, month, fullYear] = str.split('.').map(str => parseInt(str, 10));
+
     return new Date(fullYear, month - 1, day, 0, 0, 0);
   }
 
@@ -134,4 +137,70 @@ export class InfoService {
     });
   }
 
+  downloadEvents(events: EventsObject[], fileName = 'calendar-event') {
+
+    // get date as ISO string without extra characters
+    function paddNum(num: string | number) {
+      if (typeof num === 'number') {
+        num = num + '';
+      }
+      if (typeof num === 'string') {
+        num = num.padStart(2, '0');
+      }
+      return num;
+    }
+
+    const now = new Date();
+
+    const hOffset = paddNum(Math.round(now.getTimezoneOffset() / 60));
+    const minOffset = paddNum(Math.round(now.getTimezoneOffset() % 60));
+    const offset = hOffset + minOffset;
+
+    const t1 = (now.getFullYear() + '') + paddNum(now.getMonth() + 1) + paddNum(now.getDate()) + 'T';
+    const t2 = paddNum(now.getHours()) + paddNum(now.getMinutes()) + paddNum(now.getSeconds()) + offset;
+    const todayStr = t1 + t2;
+
+    const orginizer = 'Daniel Meurer';
+    const orginzerEmail = 'guntersblumer_spieleabend@proton.me';
+
+    let lines: string[] = [];
+    lines.push('BEGIN:VCALENDAR');
+    lines.push('VERSION:2.0');
+    lines.push('PRODID:DanielMeurerJavaScript');
+    lines.push('CALSCALE:GREGORIAN');
+
+    events.forEach((event, i) => {
+
+      const [date, month, year] = event.dateFrom!.split('.');
+
+      const startStr = year + month + date + 'T' + paddNum(event.startTime.hour + '') + paddNum(event.startTime.minute) + '00' + offset;
+
+      const label = event.number +  '. Guntersblumer Spieleabend';
+
+      lines.push('BEGIN:VEVENT');
+
+      lines.push('UID:uid_' + label);
+      lines.push('ORGANIZER;CN=' + orginizer + ':MAILTO:' + orginzerEmail);
+      lines.push('DTSTAMP:' + todayStr);
+      lines.push('DTSTART:' + startStr);
+      lines.push('DURATION:PT4H');
+      lines.push('SUMMARY:' + label);
+
+      lines.push('END:VEVENT');
+
+    });
+
+
+    lines.push('END:VCALENDAR');
+
+    const iCalcData = lines.join('\n');
+
+    const data = new Blob([iCalcData], {type: 'text/calendar', endings: 'native'});
+    const a = this.documentObject.createElement('a');
+    a.download = fileName + '.ics';
+    a.href = URL.createObjectURL(data);
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+  }
 }
