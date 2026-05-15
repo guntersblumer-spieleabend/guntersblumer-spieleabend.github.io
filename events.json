@@ -1,18 +1,6 @@
 {
   "events": [
     {
-      "dateFrom": "03.07.2026",
-      "location": "Evangelisches Gemeindehaus",
-      "startTime": {"hour": 18, "minute": 0},
-      "number": 11
-    },
-    {
-      "dateFrom": "12.06.2026",
-      "location": "Evangelisches Gemeindehaus",
-      "startTime": {"hour": 18, "minute": 0},
-      "number": 10
-    },
-    {
       "dateFrom": "29.05.2026",
       "location": "Evangelisches Gemeindehaus",
       "startTime": {"hour": 18, "minute": 0},
