@@ -16,6 +16,7 @@
   --secondary: rgb(225, 225, 225);
   --accent: var(--gb-green);
   --text: rgb(27, 27, 32);
+  --secondary-text: oklch(from var(--text) calc(l + 0.33) c h);
 
   --page-width: 1080px;
   --side-padding: 0ch;
@@ -82,6 +83,13 @@
       background-color: lch(from var(--bcolor) calc(l + 6) c h);
       cursor: pointer;
       // filter: drop-shadow(0.1em 0.1em 0.05em grey);
+    }
+
+    &:focus-visible {
+      outline-color: var(--primary);
+      &.primary {
+        outline-color: black;
+      }
     }
 
     &:active {

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { CompartementComponent } from '../../shared/compartement/compartement.component';
 import { UtilTooltipModule } from '../../shared/util-tooltip/util-tooltip.module';
 import { take } from 'rxjs';
+import { QrCodeEventComponent } from '../../shared/qr-code-event/qr-code-event.component';
 
 
 @Component({
   selector: 'app-start',
-  imports: [CommonModule, CompartementComponent, UtilTooltipModule],
+  imports: [CommonModule, CompartementComponent, UtilTooltipModule, QrCodeEventComponent],
 
   templateUrl: './start.component.html',
   styleUrl: './start.component.scss',

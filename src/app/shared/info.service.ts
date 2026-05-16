@@ -1,7 +1,7 @@
 import { DOCUMENT, inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, forkJoin, map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 type GermanDateRange = {
   dateObjectFrom?: Date;
@@ -63,7 +63,7 @@ export class InfoService {
       });
 
       this.httpClient.get<{news: NewsObject[]}>('news.json').subscribe(res => {
-        this.newsBehaviorSubject.next(this.sortGermanDateRangeObjects(res.news, 'none'));
+        this.newsBehaviorSubject.next(this.sortGermanDateRangeObjects(res.news, 'asc'));
       });
 
     } else {
@@ -113,7 +113,9 @@ export class InfoService {
   }
 
   futureEvents() {
-    const now = Date.now();
+    const offsetDelta = 1000 * 60 * 60 * 24; // ms of 1 day
+    // ms of yesterday
+    const now = Date.now() - offsetDelta;
 
     return this.events$.pipe(map(events => {
       const newArr = structuredClone(events);
@@ -139,7 +141,21 @@ export class InfoService {
 
   downloadEvents(events: EventsObject[], fileName = 'calendar-event') {
 
-    // get date as ISO string without extra characters
+    const iCalData = this.getICalendarFileText(events);
+
+    const data = new Blob([iCalData], {type: 'text/calendar', endings: 'native'});
+    const a = this.documentObject.createElement('a');
+    a.download = fileName + '.ics';
+    a.href = URL.createObjectURL(data);
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+  }
+
+  getICalendarFileText(events: EventsObject[]): string {
+
+    const now = new Date();
+
     function paddNum(num: string | number) {
       if (typeof num === 'number') {
         num = num + '';
@@ -150,22 +166,22 @@ export class InfoService {
       return num;
     }
 
-    const now = new Date();
-
     const hOffset = paddNum(Math.round(now.getTimezoneOffset() / 60));
     const minOffset = paddNum(Math.round(now.getTimezoneOffset() % 60));
     const offset = hOffset + minOffset;
 
     const t1 = (now.getFullYear() + '') + paddNum(now.getMonth() + 1) + paddNum(now.getDate()) + 'T';
-    const t2 = paddNum(now.getHours()) + paddNum(now.getMinutes()) + paddNum(now.getSeconds()) + offset;
+    const t2 = paddNum(now.getHours()) + paddNum(now.getMinutes()) + paddNum(now.getSeconds());
     const todayStr = t1 + t2;
 
     const orginizer = 'Daniel Meurer';
     const orginzerEmail = 'guntersblumer_spieleabend@proton.me';
 
     let lines: string[] = [];
+
     lines.push('BEGIN:VCALENDAR');
     lines.push('VERSION:2.0');
+
     lines.push('PRODID:DanielMeurerJavaScript');
     lines.push('CALSCALE:GREGORIAN');
 
@@ -175,32 +191,71 @@ export class InfoService {
 
       const startStr = year + month + date + 'T' + paddNum(event.startTime.hour + '') + paddNum(event.startTime.minute) + '00' + offset;
 
+      const hDuration = 4;
+      // const end = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour + duration, mins);
+      // const endStr = formatICalDate(end);
+
       const label = event.number +  '. Guntersblumer Spieleabend';
 
       lines.push('BEGIN:VEVENT');
 
-      lines.push('UID:uid_' + label);
+      lines.push('UID:uid_' + event.number + 'guntersblumerspieleabend');
+
+      lines.push('SUMMARY:' + label);
+      lines.push('LOCATION:' + event.location);
       lines.push('ORGANIZER;CN=' + orginizer + ':MAILTO:' + orginzerEmail);
       lines.push('DTSTAMP:' + todayStr);
+
       lines.push('DTSTART:' + startStr);
-      lines.push('DURATION:PT4H');
-      lines.push('SUMMARY:' + label);
+      lines.push('DURATION:PT' + hDuration + 'H');
 
       lines.push('END:VEVENT');
 
     });
 
-
     lines.push('END:VCALENDAR');
 
-    const iCalcData = lines.join('\n');
+    // The iCalendar standard requires CRLF (Carriage Return + Line Feed) line endings
+    return lines.join('\r\n');
 
-    const data = new Blob([iCalcData], {type: 'text/calendar', endings: 'native'});
-    const a = this.documentObject.createElement('a');
-    a.download = fileName + '.ics';
-    a.href = URL.createObjectURL(data);
-    a.click();
-    URL.revokeObjectURL(a.href);
 
   }
+
+  getICalendarQRCodeText(event: EventsObject) {
+
+    function formatICalDate(date: Date) {
+      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + '';
+    }
+
+    const now = new Date();
+
+    const lines: string[] = [];
+
+    const [date, month, year] = event.dateFrom!.split('.');
+
+    const mins = event.startTime.minute - now.getTimezoneOffset();
+    const start = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour, mins);
+    const startStr = formatICalDate(start);
+
+    const duration = 4;
+
+    const end = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour + duration, mins);
+    const endStr = formatICalDate(end);
+
+    const label = event.number +  '. Guntersblumer Spieleabend';
+
+    lines.push('BEGIN:VEVENT');
+
+    lines.push('SUMMARY:' + label);
+    lines.push('LOCATION:' + event.location);
+    lines.push('DTSTART:' + startStr);
+    lines.push('DTEND:' + endStr);
+
+    lines.push('END:VEVENT');
+
+    // The iCalendar standard requires CRLF (Carriage Return + Line Feed) line endings
+    return lines.join('\r\n');
+
+  }
+
 }

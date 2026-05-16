@@ -17,22 +17,35 @@
 
     <aside>
       <button class="icon-button secondary" (click)="downloadNextEvent(nextEvent)">Download nächster Termin als iCalc-Datei</button>
+
+      <div>
+        <h3>Mobiler Event Qr Code</h3>
+        <app-qr-code-event [event]="nextEvent"></app-qr-code-event>
+      </div>
+
     </aside>
 
   </div>
+
+  <div class="horizontal-line"></div>
 }
 
-<!-- @if (infoService.news$ | async; as newsArr) {
+@if (infoService.news$ | async; as newsArr) {
   <div class="news-container">
+    <h2>Neuigkeiten</h2>
     @for (newsObj of newsArr; track $index; let i = $index) {
       <div class="news-item">
-        <div class="news-item">{{ newsObj.html }}</div>
+        <div class="from">Vom {{ newsObj.dateFrom }}:</div>
+        <div class="message">{{ newsObj.html }}</div>
       </div>
     }
   </div>
-} -->
+  <div class="horizontal-line"></div>
+}
+
 
 @if (infoService.futureEvents() | async; as eventsArr) {
+
   <div class="events-container">
     <main>
       <h2>Kommende Termine:</h2>
@@ -40,12 +53,16 @@
       <div class="container-content">
 
         @if (eventsArr.length > 0) {
-          @for (event of eventsArr; track $index; let i = $index) {
-            <div class="event">
-              <div class="name">Nr. {{ event.number }}</div>
-              <div class="date">Am: {{ event.dateFrom }}</div>
-            </div>
-          }
+
+          <table>
+            <tr><th>Nummer</th><th>Datum</th></tr>
+
+            @for (event of eventsArr; track $index; let i = $index) {
+              <tr><td>Nr. {{ event.number }}</td><td>Am: {{ event.dateFrom }}</td></tr>
+            }
+
+          </table>
+
         } @else {
           <div>Keine weitere Termine geplant</div>
         }
@@ -57,6 +74,8 @@
     </aside>
 
   </div>
+
+  <div class="horizontal-line"></div>
 }
 
 
