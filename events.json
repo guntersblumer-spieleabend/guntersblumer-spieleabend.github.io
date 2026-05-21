@@ -1,0 +1,67 @@
+{
+  "events": [
+    {
+      "dateFrom": "29.05.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 9,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "15.05.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 8,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "25.04.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 7,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "10.04.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 6,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "20.03.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 5,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "20.02.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 4,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "06.02.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 3,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "23.01.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 2,
+      "season": "WS26"
+    },
+    {
+      "dateFrom": "09.01.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 1,
+      "season": "WS26"
+    }
+  ]
+}

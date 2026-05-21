@@ -1,0 +1,24 @@
+{
+  "faqs": [
+    {
+      "questionHtml": "Kann ich eigene Spiele mitbringen?",
+      "answerHtml": "Ja, sehr gerne aber Spiele sind auch vorhanden."
+    },
+    {
+      "questionHtml": "Ich bin unter 18 Jahre alt, darf ich kommen?",
+      "answerHtml": "Personen unter 18 Jahren dürfen nur in Begleitung eines Erziehungsberechtigten teilnehmen."
+    },
+    {
+      "questionHtml": "Darf ich auch mit einem Kleinkind kommen?",
+      "answerHtml": "Ja, wir bieten aber keine Betreuung an."
+    },
+    {
+      "questionHtml": "Was kostet der Abend?",
+      "answerHtml": "Nichts. Es existiert eine Spendenbox und du kannst gerne etwas hinzugeben wenn du Spaß hattest aber es ist freiwillig."
+    },
+    {
+      "questionHtml": "Ich habe eine andere Frage, wie kann ich euch erreichen?",
+      "answerHtml": "Komm doch einfach in die WhatsApp-Gruppe (siehe unten) oder schreibe eine E-Mail an guntersblumer_spieleabend@proton.me"
+    }
+  ]
+}
