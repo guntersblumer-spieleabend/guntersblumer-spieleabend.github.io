@@ -20,7 +20,7 @@
 
       <div>
         <h3>Mobiler Event Qr Code</h3>
-        <app-qr-code-event [event]="nextEvent"></app-qr-code-event>
+        <qrcode [qrdata]="nextEvent | qrCodeEvent" [width]="256"></qrcode>
       </div>
 
     </aside>
