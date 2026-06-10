@@ -3,12 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { WebsiteService } from '../../shared/website.service';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { MobileDateFormComponent } from '../../shared/mobile-date-form/mobile-date-form.component';
 
 @Component({
   selector: 'app-contact',
   imports: [
     FormsModule,
-    AsyncPipe
+    AsyncPipe,
+    MobileDateFormComponent
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',

@@ -8,6 +8,7 @@ type GermanDateRange = {
   dateFrom?: string;
   dateTo?: string;
   // calculated from the script
+  hourDuration?: number;
   dateFromRaw?: number;
   dateFromWeekDay?: string;
   dateToRaw?: number;
@@ -19,6 +20,7 @@ export type NewsObject = {
 } & GermanDateRange;
 
 export type EventsObject = {
+  label?: string;
   location: string;
   number: number;
   startTime: {hour: number; minute: number;};
@@ -237,12 +239,12 @@ export class InfoService {
     const start = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour, mins);
     const startStr = formatICalDate(start);
 
-    const duration = 4;
+    const duration = event.hourDuration || 4;
 
     const end = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour + duration, mins);
     const endStr = formatICalDate(end);
 
-    const label = event.number +  '. Guntersblumer Spieleabend';
+    const label = event.label || event.number +  '. Guntersblumer Spieleabend';
 
     lines.push('BEGIN:VEVENT');
 
