@@ -226,7 +226,9 @@ export class InfoService {
   getICalendarQRCodeText(event: EventsObject) {
 
     function formatICalDate(date: Date) {
-      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + '';
+      const iso = date.toISOString();
+      const res = iso.replace(/[-:]/g, '').split('.')[0] + '';
+      return res;
     }
 
     const now = new Date();
@@ -239,9 +241,10 @@ export class InfoService {
     const start = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour, mins);
     const startStr = formatICalDate(start);
 
-    const duration = event.hourDuration || 4;
+    const durationH = event.hourDuration || 4;
+    let durationSec = Math.round(60 * 60 * durationH);
 
-    const end = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour + duration, mins);
+    const end = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour, mins, durationSec);
     const endStr = formatICalDate(end);
 
     const label = event.label || event.number +  '. Guntersblumer Spieleabend';

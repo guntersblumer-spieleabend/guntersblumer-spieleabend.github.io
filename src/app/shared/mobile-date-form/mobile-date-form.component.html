@@ -1,43 +1,44 @@
+<div class="mobile-date-form">
+  <div class="input-comb">
+    <label>
+        <span>Label:</span>
+        <input type="text" [(ngModel)]="label" placeholder="Enter label">
+    </label>
+  </div>
 
-<div class="input-comb">
-  <label>
-    <span>Label:</span>
-    <input type="text" [(ngModel)]="label">
-  </label>
+  <div class="input-comb">
+    <label>
+        <span>Location:</span>
+        <input type="text" [(ngModel)]="location" placeholder="Enter location">
+    </label>
+  </div>
+
+  <div class="input-comb">
+    <label>
+        <span>Start Date (dd.MM.YYYY):</span>
+        <input type="text" [(ngModel)]="date" placeholder="01.01.2025">
+    </label>
+  </div>
+
+  <div class="input-comb">
+    <label>
+        <span>Start Time (24h):</span>
+        <input type="text" [(ngModel)]="time" placeholder="14:30">
+    </label>
+  </div>
+
+    <div class="input-comb">
+      <label>
+        <span>Duration (h):</span>
+        <input type="text" [(ngModel)]="duration" placeholder="2.5">
+      </label>
+    </div>
+
+  <div>
+    @if (event$ | async; as event) {
+      <h3>Mobiler Event Qr Code</h3>
+      <qrcode [qrdata]="event | qrCodeEvent" [width]="256"></qrcode>
+    }
+  </div>
 </div>
 
-<div class="input-comb">
-  <label>
-    <span>Location:</span>
-    <input type="text" [(ngModel)]="location">
-  </label>
-</div>
-
-<div class="input-comb">
-  <label>
-    <span>Start Date (dd.MM.YYYY):</span>
-    <input type="text" [(ngModel)]="date">
-  </label>
-</div>
-
-<div class="input-comb">
-  <label>
-    <span>Start Time (24h):</span>
-    <input type="text" [(ngModel)]="time">
-  </label>
-</div>
-
-<div class="input-comb">
-  <label>
-    <span>Duration (h):</span>
-    <input type="text" [(ngModel)]="duration">
-  </label>
-</div>
-
-<div>
-  @if (event$ | async; as event) {
-    <h3>Mobiler Event Qr Code</h3>
-    <qrcode [qrdata]="event | qrCodeEvent" [width]="256"></qrcode>
-  }
-
-</div>

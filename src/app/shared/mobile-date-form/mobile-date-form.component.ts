@@ -50,16 +50,18 @@ export class MobileDateFormComponent implements OnDestroy {
 
       if (label && location && date && time && duration) {
 
+        const [h, min] = (time || '').split(':');
+
         const ev: EventsObject = {
           label,
           location,
           number: 0,
           dateFrom: date,
           startTime: {
-            hour: parseInt(time, 10),
-            minute: 0
+            hour: parseInt(h || '0', 10),
+            minute: parseInt(min || '0', 10)
           },
-          hourDuration: duration ? parseInt(duration, 10) : 0,
+          hourDuration: duration ? parseFloat(duration || '0') : 0,
 
         };
 
