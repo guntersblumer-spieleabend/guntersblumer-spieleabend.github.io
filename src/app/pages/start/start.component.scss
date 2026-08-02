@@ -1,6 +1,10 @@
 
 :host {
 
+  display: block;
+  container-name: start-page-container;
+  container-type: inline-size;
+
   .next-event-container {
 
     margin-top: 4ch;
@@ -39,6 +43,15 @@
       display: flex;
       flex-direction: column;
       gap: 1ch;
+    }
+
+    @container start-page-container (width <= 680px) {
+      flex-direction: column;
+      place-items: center;
+
+      aside {
+        margin-left: inherit;
+      }
     }
 
   }
