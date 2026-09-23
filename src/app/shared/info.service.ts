@@ -144,13 +144,55 @@ export class InfoService {
   downloadEvents(events: EventsObject[], fileName = 'calendar-event') {
 
     const iCalData = this.getICalendarFileText(events);
+    const onpageFile = this.getOnpageFile(iCalData);
 
-    const data = new Blob([iCalData], {type: 'text/calendar', endings: 'native'});
-    const a = this.documentObject.createElement('a');
-    a.download = fileName + '.ics';
-    a.href = URL.createObjectURL(data);
-    a.click();
-    URL.revokeObjectURL(a.href);
+    onpageFile.download(fileName, true);
+
+  }
+
+  getEventAsOnPageFile(events: EventsObject[]) {
+    const iCalData = this.getICalendarFileText(events);
+    return this.getOnpageFile(iCalData);
+  }
+
+  private getOnpageFile(data: string) {
+
+    const onpageFile = {
+      file: null! as Blob,
+      url: '',
+      activateUrl: () => {},
+      download: (fileName: string, revokeAfter?: boolean) => {},
+      revokeUrl: () => {}
+    };
+
+    onpageFile.file = new Blob([data], {type: 'text/calendar', endings: 'native'});
+
+    onpageFile.download = (fileName: string, revokeAfter?: boolean) => {
+      const a = this.documentObject.createElement('a');
+      a.download = fileName + '.ics';
+      onpageFile.activateUrl();
+      a.href = onpageFile.url;
+      a.click();
+      if (revokeAfter) {
+        onpageFile.revokeUrl();
+      }
+    };
+
+    onpageFile.activateUrl = () => {
+      if (onpageFile.url) {
+        onpageFile.revokeUrl();
+      }
+      onpageFile.url = URL.createObjectURL(onpageFile.file);
+    };
+
+    onpageFile.revokeUrl = () => {
+      if (onpageFile.url) {
+        URL.revokeObjectURL(onpageFile.url);
+        onpageFile.url = '';
+      }
+    };
+
+    return onpageFile;
 
   }
 

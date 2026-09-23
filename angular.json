@@ -73,6 +73,11 @@
               "buildTarget": "guntersblumer-spieleabend-ssg:build:development"
             }
           },
+          "options": {
+            "ssl": true,
+            "host": "0.0.0.0",
+            "allowedHosts": true
+          },
           "defaultConfiguration": "development"
         },
         "test": {
