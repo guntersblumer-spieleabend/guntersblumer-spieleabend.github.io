@@ -1,5 +1,5 @@
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SvgIcon } from '../svg-icon/svg-icon';
 
@@ -8,11 +8,16 @@ import { SvgIcon } from '../svg-icon/svg-icon';
   imports: [
     RouterLink,
     RouterLinkActive,
-    // AsyncPipe,
     NgTemplateOutlet,
     SvgIcon
   ],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.scss',
 })
-export class MainNavComponent {}
+export class MainNavComponent {
+  @ViewChild('menu') menu?: ElementRef<HTMLDialogElement>;
+
+  close() {
+    this.menu?.nativeElement?.hidePopover();
+  }
+}

@@ -1,0 +1,132 @@
+
+:host {
+  display: block;
+  width: 100%;
+
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5ch;
+
+    color: white;
+    text-decoration: none;
+
+    &:hover, &:focus-visible {
+      text-decoration: underline;
+    }
+
+    &:visited {
+      color: white;
+    }
+  }
+
+  .active-link {
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5ch 2ch;
+    padding-bottom: 1ch;
+  }
+
+  .burger-menu {
+    display: none;
+  }
+
+  @media screen and (max-width: 480px) {
+
+    .nav-list {
+      display: none;
+    }
+
+    .burger-menu {
+      display: block;
+      padding-bottom: 1ch;
+      text-align: center;
+    }
+
+    .burger-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+      background: transparent;
+      border: 0;
+      padding: 0.5ch;
+      border-radius: 0.5ch;
+      cursor: pointer;
+
+      anchor-name: --burger-button;
+
+      &:hover, &:focus-visible {
+        background: rgb(255 255 255 / 15%);
+      }
+
+
+    }
+
+    dialog[popover] {
+      display: none;
+
+      position: fixed;
+
+      position-anchor: --burger-button;
+      top: anchor(bottom);
+
+      margin-left: auto;
+      margin-right: auto;
+
+      width: min(90%, 340px);
+      padding: 2ch;
+
+      background: white;
+      color: var(--text);
+      border: 0.5ch solid var(--gb-blue);
+      outline: 0.25ch solid var(--gb-blue);
+      outline-offset: 2px;
+      border-radius: 1ch;
+      corner-shape: squircle;
+
+      ::backdrop {
+        background: rgb(0 0 0 / 50%);
+      }
+
+      &:popover-open {
+        display: block;
+      }
+
+    }
+
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5ch;
+
+      a {
+        color: var(--text);
+
+        &:hover, &:focus-visible {
+          color: var(--primary);
+        }
+      }
+
+      .active-link {
+        color: var(--primary);
+      }
+    }
+  }
+
+}
+

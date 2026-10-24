@@ -210,9 +210,10 @@ export class InfoService {
       return num;
     }
 
-    const hOffset = paddNum(Math.round(now.getTimezoneOffset() / 60));
-    const minOffset = paddNum(Math.round(now.getTimezoneOffset() % 60));
-    const offset = hOffset + minOffset;
+    // calculate offset for every event dynamically
+    // const hOffset = paddNum(Math.round(now.getTimezoneOffset() / 60));
+    // const minOffset = paddNum(Math.round(now.getTimezoneOffset() % 60));
+    // const offset = hOffset + minOffset;
 
     const t1 = (now.getFullYear() + '') + paddNum(now.getMonth() + 1) + paddNum(now.getDate()) + 'T';
     const t2 = paddNum(now.getHours()) + paddNum(now.getMinutes()) + paddNum(now.getSeconds());
@@ -232,6 +233,11 @@ export class InfoService {
     events.forEach((event, i) => {
 
       const [date, month, year] = event.dateFrom!.split('.');
+      // Date of that day in order to get the correct time zone offset
+      const then = new Date(Number(year), Number(month) - 1, Number(date), 12);
+      const hOffset = paddNum(Math.round(then.getTimezoneOffset() / 60));
+      const minOffset = paddNum(Math.round(then.getTimezoneOffset() % 60));
+      const offset = hOffset + minOffset;
 
       const startStr = year + month + date + 'T' + paddNum(event.startTime.hour + '') + paddNum(event.startTime.minute) + '00' + offset;
 
@@ -273,13 +279,14 @@ export class InfoService {
       return res;
     }
 
-    const now = new Date();
-
     const lines: string[] = [];
 
     const [date, month, year] = event.dateFrom!.split('.');
 
-    const mins = event.startTime.minute - now.getTimezoneOffset();
+    // Date of that day in order to get the correct time zone offset
+    const then = new Date(Number(year), Number(month) - 1, Number(date), 12);
+
+    const mins = event.startTime.minute - then.getTimezoneOffset();
     const start = new Date(parseInt(year, 10), parseInt(month) - 1, parseInt(date, 10), event.startTime.hour, mins);
     const startStr = formatICalDate(start);
 

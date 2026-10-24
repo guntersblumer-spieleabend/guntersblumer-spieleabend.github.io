@@ -6,9 +6,11 @@ import { ContactComponent } from './pages/contact/contact.component';
 export const routes: Routes = [
 
   {
+    component: StartComponent,
     path: '',
-    redirectTo: 'start',
-    pathMatch: 'full',
+    data: {
+      pageName: 'Startseite'
+    }
   },
   {
     component: StartComponent,

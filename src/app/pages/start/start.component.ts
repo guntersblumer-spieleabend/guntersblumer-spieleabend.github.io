@@ -35,4 +35,11 @@ export class StartComponent {
     return 'Ab ' + h + (m > 0 ? (':' + mStr) : '') + ' Uhr';
   }
 
+  logEvent(event: Parameters<(typeof this.infoService.downloadEvents)>[0][number]) {
+
+    const iCalendarQRCodeTextStr = this.infoService.getICalendarQRCodeText(event);
+    console.log('event: ', {event, iCalendarQRCodeTextStr});
+
+  }
+
 }

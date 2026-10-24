@@ -15,7 +15,7 @@
   </li>
 
   <li>
-    <a routerLink="/faq" routerLinkActive="active-link">
+    <a routerLink="/start" fragment="faqs" routerLinkActive="active-link">
       <app-svg-icon type="question"></app-svg-icon>
       FAQ
     </a>
@@ -34,7 +34,7 @@
     <app-svg-icon type="menu"></app-svg-icon>
   </button>
 
-  <dialog [attr.id]="'Menu'" popover>
+  <dialog #menu [attr.id]="'Menu'" popover (click)="close()">
     <ul class="menu-list">
       <ng-container *ngTemplateOutlet="listElements"></ng-container>
     </ul>

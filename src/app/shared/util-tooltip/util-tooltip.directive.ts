@@ -89,32 +89,32 @@ export class UtilTooltipDirective implements OnInit, OnDestroy {
           box-shadow: 1px 1px 4px 1px #333;
         }
 
-        @position-try --ut-below-right {
-          top: anchor(bottom);
-          right: auto;
+        @position-try --ut-below {
+          top: calc(anchor(bottom) + 6px);
           bottom: auto;
           left: anchor(center);
-        }
-
-        @position-try --ut-below-left {
-          top: anchor(bottom);
           right: anchor(center);
-          bottom: auto;
-          left: auto;
         }
 
-        @position-try --ut-above-right {
+        @position-try --ut-above {
           top: auto;
-          right: auto;
-          bottom: anchor(top);
+          bottom: calc(anchor(top) + 6px);
           left: anchor(center);
+          right: anchor(center);
         }
 
-        @position-try --ut-above-left {
-          top: auto;
-          right: anchor(center);
-          bottom: anchor(top);
+        @position-try --ut-right {
+          top: anchor(center);
+          bottom: anchor(center);
+          left: calc(anchor(right) + 6px);
+          right: auto;
+        }
+
+        @position-try --ut-left {
+          top: anchor(center);
+          bottom: anchor(center);
           left: auto;
+          right: calc(anchor(left) + 6px);
         }
       `;
       defaultStyleEl = this.documentRef.createElement('style');
@@ -197,11 +197,12 @@ export class UtilTooltipDirective implements OnInit, OnDestroy {
     // default anchor for tooltip element
     tooltipEl.style.setProperty('position-anchor', anchorName);
 
-    tooltipEl.style.setProperty('position-try-fallbacks', '--ut-below-right, --ut-above-right, --ut-below-left, --ut-above-left');
+    tooltipEl.style.setProperty('position-try-fallbacks', '--ut-below, --ut-above, --ut-right, --ut-left');
 
     tooltipEl.style.setProperty('inset', 'unset');
-    tooltipEl.style.setProperty('top', 'anchor(bottom)');
+    tooltipEl.style.setProperty('top', 'calc(anchor(bottom) + 6px)');
     tooltipEl.style.setProperty('left', 'anchor(center)');
+    tooltipEl.style.setProperty('right', 'anchor(center)');
     tooltipEl.style.setProperty('position-visibility', 'anchors-visible');
 
 

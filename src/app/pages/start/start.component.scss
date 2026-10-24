@@ -159,6 +159,22 @@
           box-shadow: 2px 2px 4px rgb(171, 171, 171);
         }
 
+        // Fade in when the card enters the viewport (CSS scroll-driven animation).
+        // The animation declarations stay top-level (the build only scopes keyframe
+        // references there); the fallbacks cover unsupported browsers and
+        // users who prefer reduced motion.
+        animation: faq-fade-in linear both;
+        animation-timeline: view();
+        animation-range: entry 20% entry 200%;
+
+        @supports not (animation-timeline: view()) {
+          animation: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+        }
+
         .question {
           font-size: 1.2rem;
 
@@ -203,4 +219,14 @@
     margin-bottom: 4ch;
   }
 
+}
+
+// Fade-in for FAQ cards, driven by scroll position (CSS scroll-driven animations)
+@keyframes faq-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

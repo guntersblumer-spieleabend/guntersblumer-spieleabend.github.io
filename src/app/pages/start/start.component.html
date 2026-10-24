@@ -3,7 +3,7 @@
   <div class="next-event-container">
 
     <main>
-      <h2>Nächster Termin:</h2>
+      <h2 (click)="logEvent(nextEvent)">Nächster Termin:</h2>
 
       <app-compartement title="Wann">
         <div class="date">{{ nextEvent.dateFrom }} <span class="weekday">({{nextEvent.dateFromWeekDay}}.)</span></div>
@@ -81,7 +81,7 @@
 
 
 @if (infoService.faqs$ | async; as faqsArr) {
-  <div class="faqs-container">
+  <div class="faqs-container" id="faqs">
     <h2>Häufig gestellte Fragen:</h2>
 
     <div class="container-content">
