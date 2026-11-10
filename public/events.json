@@ -1,6 +1,13 @@
 {
   "events": [
     {
+      "dateFrom": "11.12.2026",
+      "location": "Evangelisches Gemeindehaus",
+      "startTime": {"hour": 18, "minute": 0},
+      "number": 14,
+      "season": "SS26"
+    },
+    {
       "dateFrom": "27.11.2026",
       "location": "Evangelisches Gemeindehaus",
       "startTime": {"hour": 18, "minute": 0},
