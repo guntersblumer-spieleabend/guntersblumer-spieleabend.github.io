@@ -36,6 +36,12 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Deployment
+
+Every push to `main` automatically builds the app and deploys it to GitHub Pages via the workflow in `.github/workflows/deploy.yml`.
+
+The repository's Pages source must be set to **GitHub Actions** under **Settings → Pages → Build and deployment**.
+
 ## Running unit tests
 
 To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
